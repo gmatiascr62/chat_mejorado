@@ -2,9 +2,28 @@
 
 
 {% block title  %}Mensajes{% endblock  %}
-<h1>hola estoy fuera</h1>
+{% block online %}
+	{% if solicitud|length > 0 %}
+	<div id="arriba"> 
+		<div class="barriba" id="cu_user">Solicitud de {{solicitud[0]}}</div><div id="acp" class="barriba borde">aceptar</div><div id="rcz" class="barriba borde">rechazar</div>
+	</div>
+	{% endif %}
+{%endblock%}
 {% block content  %}
-<h1>contenido aca va el chat</h1>
+<div id="amigos">
+{%for i in amigos%}
+<span class="amigos">{{i}}</span>
+{%endfor%}
+</div>
+<div id="texto"></div>
+<div>
+    <input type="text" id="mensaje" placeholder="mensaje" required>
+    <button id="sendBtn">Enviar</button>
+</div>
+<div>
+    <input type="text" id="aContancto" placeholder="Agregar contacto" required>
+    <button id="agregar">Agregar</button>
+</div>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
 {% endblock  %}
-
 

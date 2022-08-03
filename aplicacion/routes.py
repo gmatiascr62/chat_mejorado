@@ -4,13 +4,19 @@ from aplicacion.forms import Login, Registro
 from aplicacion.models import Usuarios
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
-from aplicacion.funciones import prueba
+from aplicacion.funciones import agregar_amigo, invitar_amigo, resumen_usuario, guardar, obtener_chat
+from flask_socketio import SocketIO, emit
+
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 @login_required
 def index():
-    print(prueba())
-    return render_template('index.html')
+    if current_user.is_authenticated:
+        solicitud = resumen_usuario("solicitudes", current_user.username)
+        return render_template('index.html', username=current_user.username, amigos=resumen_usuario("amigos", current_user.username), solicitud=solicitud)
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -43,3 +49,40 @@ def registro():
         flash('Usuario registrado!')
         return redirect(url_for('login'))
     return render_template('registro.html', form=form)
+
+#SocketIO
+@socketio.on('message')
+def test_connect(msg):
+    print(msg, current_user)
+    emit('resumen_user', current_user.username)
+
+@socketio.on('envContacto')
+def envContacto(*args):
+   yo = args[1]
+   quiero = args[0]
+   agregando = invitar_amigo(yo, quiero)
+   print("agregando", agregando)
+   emit('respEnvContacto', agregando)
+
+@socketio.on('aceptarUsuario')
+def aceptarUsuario(data):
+    amigo = data[13:]
+    yo = current_user.username
+    agregar_amigo(yo, amigo)
+    agregar_amigo(amigo, yo)
+    emit('respAceptaUser', 'usuario aceptado')
+
+@socketio.on('my event')
+def my_event(*args):
+    guardar(*args)
+    lista = []
+    for i in args:
+        lista.append(i)
+    print("argumentos: ", lista)
+    emit('mande', lista, broadcast=True)
+
+@socketio.on('obtener')
+def obtener(*args):
+    print("entro a obtener: ",args)
+    chat = obtener_chat(args[0],args[1])
+    emit('carga_chat', chat)
