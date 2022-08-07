@@ -13,6 +13,10 @@ body {
 	font-size:100px;
 }
 
+#mensaje{
+	border-radius: 8px;
+}
+
 #escribir{
 	text-align: center;
 }
