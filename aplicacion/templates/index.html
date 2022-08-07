@@ -15,15 +15,18 @@
 <span class="amigos">{{i}}</span>
 {%endfor%}
 </div>
+<div id="eventos">
+	<span id="alerta">Agrega</span>
+	<input type="text" id="aContancto" placeholder="Usuario" style="width: 50px;" required>
+	<button id="agregar">Agregar</button>
+</div>
+
 <div id="texto"></div>
-<div>
-    <input type="text" id="mensaje" placeholder="mensaje" required>
+<div id="escribir">
+    <input type="text" id="mensaje"  placeholder="mensaje" required>
     <button id="sendBtn">Enviar</button>
 </div>
-<div>
-    <input type="text" id="aContancto" placeholder="Agregar contacto" required>
-    <button id="agregar">Agregar</button>
-</div>
+
 <script src="{{ url_for('static', filename='main.js') }}"></script>
 {% endblock  %}
 

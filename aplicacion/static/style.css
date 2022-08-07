@@ -13,6 +13,27 @@ body {
 	font-size:100px;
 }
 
+#escribir{
+	text-align: center;
+}
+
+#eventos{
+	position: fixed;
+	border: 2px solid;
+	border-radius: 5px;
+	right: -35%;
+	top: 90px;
+	width: 50%;
+}
+
+#eventos span{
+	background-color:grey;
+}
+
+#eventos.mover{
+	right:0%;
+}
+
 #titulo{
 	text-align: center;
 	font-family: 'FontName';

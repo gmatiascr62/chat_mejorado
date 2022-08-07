@@ -24,9 +24,9 @@ def load_user(id):
 
 class Mensajes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    origen = db.Column(db.Integer)
+    origen = db.Column(db.String(20))
     mensaje = db.Column(db.String(84))
-    destino = db.Column(db.Integer)
+    destino = db.Column(db.String(20))
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

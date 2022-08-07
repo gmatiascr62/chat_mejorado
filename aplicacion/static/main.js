@@ -6,6 +6,8 @@ const solAmigo = document.getElementById('cu_user');
 const enviar = document.getElementById('sendBtn');
 const mensaje = document.getElementById('mensaje');
 const agregar = document.getElementById('agregar');
+const alerta = document.getElementById('alerta');
+const eventos = document.getElementById('eventos');
 const historial = false;
 var socket = io();
 var destino;
@@ -27,6 +29,9 @@ enviar.addEventListener('click', () =>{
 	mensaje.focus();
 });
 
+alerta.addEventListener('click', () =>{
+	eventos.classList.toggle('mover');
+});
 
 agregar.addEventListener('click', () =>{
 	if (aContancto.value != ""){
@@ -85,9 +90,7 @@ socket.on('mande', (data) =>{
 });
 
 if (document.body.contains(solAmigo) == true){
-	alert('entro al if');
 	aceptar.addEventListener('click', () =>{
-		alert('aceptaususario');
 		socket.emit('aceptarUsuario', solAmigo.textContent);
 	});
 };
