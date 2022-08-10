@@ -51,13 +51,25 @@ socket.on('respAceptaUser', (data) =>{
 socket.on('carga_chat', (data) =>{
 	if (historial == false){
 		for (let i = 0; i<data.length; i++){
-			var etiquet = document.createElement('h3');
-			etiquet.innerHTML = data[i][1];
-			texto.appendChild(etiquet);
+			var fila = document.createElement('div');
+			var columna = document.createElement('div');
+			var mens = document.createElement('h3');
+			var hora = document.createElement('h6');
+			mens.innerHTML = data[i][1];
+			hora.innerHTML = data[i][2];
+			columna.appendChild(mens);
+			columna.appendChild(hora);
+			fila.appendChild(columna);
+			texto.appendChild(fila);
+			console.log(columna);
 			if (data[i][0] == usuarioConectado){
-				etiquet.classList.add("msgMio");
+				fila.classList.add("row", "justify-content-end");
+				columna.classList.add("col-7","bg-info", "m-2", "rounded-4");
+				hora.classList.add('small');
 			}else{
-				etiquet.classList.add("msgOtro");
+				fila.classList.add("row", "justify-content-start");
+				columna.classList.add("col-7","bg-warning", "m-2", "rounded-4");
+				hora.classList.add('small');
 			};
 		};
 	};
@@ -65,18 +77,26 @@ socket.on('carga_chat', (data) =>{
 });
 
 socket.on('mande', (data) =>{
+	
+	var fila = document.createElement('div');
+    	var columna = document.createElement('div');
+    	var mens = document.createElement('h3');
+    	var hora = document.createElement('h6');
+    	mens.innerHTML = data[1];
+    	hora.innerHTML = data[3];
+    	columna.appendChild(mens);
+    	columna.appendChild(hora);
+    	fila.appendChild(columna);
+    	texto.appendChild(fila);
 	if (data[0] == usuarioConectado) {
-		var etiqueta = document.createElement('h3');
-		etiqueta.innerHTML = data[1];
-		texto.appendChild(etiqueta);
-		etiqueta.classList.add('msgMio');
-
+		fila.classList.add("row", "justify-content-end");
+		columna.classList.add("col-7","bg-info", "m-2", "rounded-4");
+		hora.classList.add('small');
 	};
 	if (data[2] == usuarioConectado && data[0] == destino) {
-		var etiqueta = document.createElement('p');
-		etiqueta.innerHTML = data[1];
-		texto.appendChild(etiqueta);
-		etiqueta.classList.add('msgOtro');
+		fila.classList.add("row", "justify-content-start");
+		columna.classList.add("col-7","bg-warning", "m-2", "rounded-4");
+		hora.classList.add('small');
 	};
 	if (data[2] == usuarioConectado && destino != data[0]){
 		for(let i=0;i<amigos.length; i++){

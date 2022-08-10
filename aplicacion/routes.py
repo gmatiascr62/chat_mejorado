@@ -4,7 +4,7 @@ from aplicacion.forms import Login, Registro
 from aplicacion.models import Usuarios
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
-from aplicacion.funciones import agregar_amigo, invitar_amigo, resumen_usuario, guardar, obtener_chat
+from aplicacion.funciones import agregar_amigo, horario, invitar_amigo, resumen_usuario, guardar, obtener_chat
 from flask_socketio import SocketIO, emit
 
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -74,11 +74,13 @@ def aceptarUsuario(data):
 
 @socketio.on('my event')
 def my_event(*args):
-    guardar(*args)
+    hora = horario()
+    guardar(*args, hora)
     lista = []
     for i in args:
         lista.append(i)
     print("argumentos: ", lista)
+    lista.append(hora)
     emit('mande', lista, broadcast=True)
 
 @socketio.on('obtener')

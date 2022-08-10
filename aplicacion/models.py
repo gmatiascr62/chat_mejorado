@@ -27,7 +27,9 @@ class Mensajes(db.Model):
     origen = db.Column(db.String(20))
     mensaje = db.Column(db.String(84))
     destino = db.Column(db.String(20))
+    hora = db.Column(db.String(20))
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+db.create_all()
