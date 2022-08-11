@@ -25,7 +25,7 @@ body {
 	position: fixed;
 	border: 2px solid;
 	border-radius: 5px;
-	right: -35%;
+	right: -43%;
 	top: 90px;
 	width: 50%;
 }
@@ -35,7 +35,7 @@ body {
 }
 
 #eventos.mover{
-	right:0%;
+	right:-10%;
 }
 
 #titulo{
@@ -49,18 +49,13 @@ body {
 	font-size: 3rem;
 }
 
-#contenido{
-	font-size: 1.2rem;
-}
 
 #texto{
 	background-color: white;
-	margin-right: 12%;
-	margin-left: 12%;
 	margin-bottom: 1rem;
-	height: 25rem;
 	overflow: scroll;
 	border-radius: 10px;
+	word-wrap: break-word;
 }
 
 .contenedor{
@@ -98,15 +93,12 @@ body {
 }
 
 .msgMio{
-	text-align: center;
-	background-color: powderBlue;
 	padding-left: 10px;
 	margin-left: 50%;
 	border-radius: 10px;
 	margin-right: 10px;
-	width: auto;
 	height: auto;
-	word-wrap: break-word;
+	word-wrap:break-word
 }
 
 .msgOtro{
@@ -126,3 +118,4 @@ body {
 .menSinLeer{
 	background-color:green;
 }
+

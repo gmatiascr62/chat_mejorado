@@ -1,6 +1,6 @@
 from aplicacion import db
 from aplicacion.models import Usuarios, Mensajes
-
+import time
 '''
 eventos:
     1_solicitud de amistad : 1_usuario_|_
@@ -66,11 +66,13 @@ def agregar_amigo(usuario, agrega):
         db.session.commit()
 
 def guardar(*args):
-    if len(args) == 3:
+    print(args)
+    if len(args) == 4:
         origenb = args[0]
         mensajeb = args[1]
+        horab = args[3]
         destinob = args[2]
-        guardame = Mensajes(origen=origenb, mensaje=mensajeb, destino=destinob)
+        guardame = Mensajes(origen=origenb, mensaje=mensajeb, destino=destinob, hora=horab)
         db.session.add(guardame)
         db.session.commit()
 
@@ -82,5 +84,28 @@ def obtener_chat(origen, destino):
     for i in todos:
         comparar = [i.origen, i.destino]
         if comparar == lista_a or comparar == lista_b:
-            retornar.append([i.origen, i.mensaje])
+            retornar.append([i.origen, i.mensaje, i.hora])
     return retornar
+
+def horario():
+    hora = time.ctime()
+    hora = hora.split()
+    dia = hora[0]
+    hora = hora[3][:5]
+    if dia == "Sun":
+        dia = "Dom"
+    elif dia == "Mon":
+        dia = "Lun"
+    elif dia == "Tue":
+        dia = "Mar"
+    elif dia == "Wed":
+        dia = "Mie"
+    elif dia == "Thu":
+        dia = "Jue"
+    elif dia == "Fri":
+        dia = "Vie"
+    elif dia == "Sat":
+        dia = "Sab"
+    return f'{dia} {hora}'
+
+
