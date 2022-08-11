@@ -1,6 +1,6 @@
 from aplicacion import db
 from aplicacion.models import Usuarios, Mensajes
-import time
+import datetime
 '''
 eventos:
     1_solicitud de amistad : 1_usuario_|_
@@ -88,10 +88,10 @@ def obtener_chat(origen, destino):
     return retornar
 
 def horario():
-    hora = time.ctime()
-    hora = hora.split()
-    dia = hora[0]
-    hora = hora[3][:5]
+    ahora = datetime.datetime.now()
+    hace_una_hora = ahora - datetime.timedelta(hours=3)
+    hora = hace_una_hora.strftime("%H:%M")
+    dia = hace_una_hora.strftime("%a")
     if dia == "Sun":
         dia = "Dom"
     elif dia == "Mon":
