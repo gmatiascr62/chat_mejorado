@@ -24,9 +24,14 @@ socket.on('resumen_user', (data) =>{
 });
 
 enviar.addEventListener('click', () =>{
-	socket.emit('my event', usuarioConectado, mensaje.value, destino);
-	mensaje.value = "";
-	mensaje.focus();
+	if (destino != undefined){
+		socket.emit('my event', usuarioConectado, mensaje.value, destino);
+		mensaje.value = "";
+		mensaje.focus();
+	}else{
+		alert("No hay ningun chat seleccionado");
+		mensaje.value = "";
+	};
 });
 
 alerta.addEventListener('click', () =>{
