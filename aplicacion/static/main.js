@@ -1,26 +1,25 @@
 var amigos = document.getElementsByClassName('amigos');
-const aContancto = document.getElementById('aContancto');
-const aceptar = document.getElementById('acp');
-const rechazar = document.getElementById('rcz');
-const solAmigo = document.getElementById('cu_user');
 const enviar = document.getElementById('sendBtn');
 const mensaje = document.getElementById('mensaje');
-const agregar = document.getElementById('agregar');
 const alerta = document.getElementById('alerta');
-const eventos = document.getElementById('eventos');
 const historial = false;
+var eventos;
 var socket = io();
 var destino;
 var usuarioConectado;
-cargaBotonesAmigos();
 
+cargaBotonesAmigos();
 
 socket.on('connect', () =>{
         socket.emit('message', 'se conecto');
 });
 
 socket.on('resumen_user', (data) =>{
-        usuarioConectado = data;
+        usuarioConectado = data[0];
+	if (data[1] != ""){
+		eventos = data[1];
+		alerta.classList.add('amarillo');
+	};
 });
 
 enviar.addEventListener('click', () =>{
@@ -35,14 +34,40 @@ enviar.addEventListener('click', () =>{
 });
 
 alerta.addEventListener('click', () =>{
-	eventos.classList.toggle('mover');
-});
-
-agregar.addEventListener('click', () =>{
-	if (aContancto.value != ""){
-		socket.emit('envContacto', aContancto.value, usuarioConectado);
-		aContancto.value = "";
+	texto.innerHTML = "";
+	var fila = document.createElement('p');
+	const boton = document.createElement('button');
+	var txt = document.createElement('input');
+	const separador = document.createElement('hr')
+	texto.appendChild(fila);
+	texto.appendChild(txt);
+	texto.appendChild(boton);
+	texto.appendChild(separador);
+	fila.innerHTML = "Agregar usuario";
+	boton.textContent = "Agregar";
+	if (eventos != undefined){
+		var nfila = document.createElement('p');
+		var nboton = document.createElement('button');
+		var nbotonDos = document.createElement('button');
+		var separadorDos = document.createElement('hr');
+		texto.appendChild(nfila);
+		texto.appendChild(nboton);
+		texto.appendChild(nbotonDos);
+		texto.appendChild(separadorDos);
+		nfila.innerHTML = `nueva solicitud de ${eventos}`;
+		nboton.textContent = "Aceptar";
+		nbotonDos.textContent = "Rechazar";
 	};
+	boton.addEventListener('click', () =>{
+		if (txt.value != ""){
+			socket.emit('envContacto', txt.value, usuarioConectado);
+			txt.value = "";
+		};
+	});
+	nboton.addEventListener('click', () => {
+		console.log(eventos);
+		socket.emit('aceptarUsuario', eventos[0]);
+	});
 });
 
 socket.on('respEnvContacto', (data) =>{
@@ -81,8 +106,7 @@ socket.on('carga_chat', (data) =>{
 	texto.scrollTop=9999;
 });
 
-socket.on('mande', (data) =>{
-	
+socket.on('mande', (data) =>{	
 	var fila = document.createElement('div');
     	var columna = document.createElement('div');
     	var mens = document.createElement('h3');

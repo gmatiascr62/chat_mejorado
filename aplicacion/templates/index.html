@@ -2,23 +2,15 @@
 
 
 {% block title  %}Mensajes{% endblock  %}
-{% block online %}
-	{% if solicitud|length > 0 %}
-	<div id="arriba"> 
-		<div class="barriba" id="cu_user">Solicitud de {{solicitud[0]}}</div><div id="acp" class="barriba borde">aceptar</div><div id="rcz" class="barriba borde">rechazar</div>
-	</div>
-	{% endif %}
-{%endblock%}
+
 {% block content  %}
 <div id="amigos">
 {%for i in amigos%}
 <span class="amigos" class="my-3">{{i}}</span>
 {%endfor%}
 </div>
-<div id="eventos">
-	<span id="alerta">Ag</span>
-	<input type="text" id="aContancto" placeholder="Usuario" style="width: 50px;" required>
-	<button id="agregar">Agregar</button>
+<div>
+	<span id="alerta" class="blanco">!</span>
 </div>
 
 <div id="texto" class="container border border-primary" style="width: 75%; height: 550px;"></div>

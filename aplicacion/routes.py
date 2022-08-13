@@ -13,8 +13,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 @login_required
 def index():
     if current_user.is_authenticated:
-        solicitud = resumen_usuario("solicitudes", current_user.username)
-        return render_template('index.html', username=current_user.username, amigos=resumen_usuario("amigos", current_user.username), solicitud=solicitud)
+        return render_template('index.html', username=current_user.username, amigos=resumen_usuario("amigos", current_user.username))
     else:
         return redirect(url_for('login'))
 
@@ -54,7 +53,9 @@ def registro():
 @socketio.on('message')
 def test_connect(msg):
     print(msg, current_user)
-    emit('resumen_user', current_user.username)
+    solicitud = resumen_usuario("solicitudes", current_user.username)
+    print(solicitud)
+    emit('resumen_user', [current_user.username, solicitud])
 
 @socketio.on('envContacto')
 def envContacto(*args):
@@ -66,7 +67,7 @@ def envContacto(*args):
 
 @socketio.on('aceptarUsuario')
 def aceptarUsuario(data):
-    amigo = data[13:]
+    amigo = data
     yo = current_user.username
     agregar_amigo(yo, amigo)
     agregar_amigo(amigo, yo)

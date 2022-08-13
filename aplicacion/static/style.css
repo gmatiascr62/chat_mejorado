@@ -21,21 +21,14 @@ body {
 	text-align: center;
 }
 
-#eventos{
+.blanco{
 	position: fixed;
 	border: 2px solid;
 	border-radius: 5px;
 	right: -43%;
 	top: 90px;
 	width: 50%;
-}
-
-#eventos span{
-	background-color:grey;
-}
-
-#eventos.mover{
-	right:-10%;
+	background-color: white;
 }
 
 #titulo{
@@ -81,10 +74,14 @@ body {
 	overflow: hidden;
 }
 
-.barriba{
-	float: left;
-	font-size:0.5rem;
-	margin-right:0.2rem;
+.amarillo{
+	position: fixed;
+        border: 2px solid;
+        border-radius: 5px;
+        right: -43%;
+        top: 90px;
+        width: 50%;
+	background-color: yellow;
 }
 
 .borde{
