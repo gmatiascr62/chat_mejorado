@@ -117,13 +117,14 @@ socket.on('mande', (data) =>{
     	columna.appendChild(mens);
     	columna.appendChild(hora);
     	fila.appendChild(columna);
-    	texto.appendChild(fila);
-	if (data[0] == usuarioConectado) {
+	if (data[0] === usuarioConectado) {
+		texto.appendChild(fila);
 		fila.classList.add("row", "justify-content-end");
 		columna.classList.add("col-7","bg-info", "m-2", "rounded-4");
 		hora.classList.add('small');
 	};
-	if (data[2] == usuarioConectado && data[0] == destino) {
+	if (data[2] === usuarioConectado && data[0] === destino) {
+		texto.appendChild(fila);
 		fila.classList.add("row", "justify-content-start");
 		columna.classList.add("col-7","bg-warning", "m-2", "rounded-4");
 		hora.classList.add('small');
