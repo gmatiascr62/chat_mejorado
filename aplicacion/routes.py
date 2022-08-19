@@ -1,4 +1,4 @@
-from aplicacion import app, db
+from aplicacion import app, db, admin
 from flask import render_template, redirect, url_for, flash, request
 from aplicacion.forms import Login, Registro
 from aplicacion.models import Usuarios
@@ -6,8 +6,15 @@ from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from aplicacion.funciones import agregar_amigo, horario, invitar_amigo, resumen_usuario, guardar, obtener_chat
 from flask_socketio import SocketIO, emit
+from flask_admin.contrib.sqla import ModelView
 
 socketio = SocketIO(app, cors_allowed_origins="*")
+
+class admin_user(ModelView):
+    def is_accessible(self):
+        return current_user.username == "mati"
+
+admin.add_view(admin_user(Usuarios, db.session))
 
 @app.route('/')
 @login_required

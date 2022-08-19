@@ -22,6 +22,7 @@ socket.on('resumen_user', (data) =>{
 	};
 });
 
+
 enviar.addEventListener('click', () =>{
 	if (destino != undefined){
 		socket.emit('my event', usuarioConectado, mensaje.value, destino);
@@ -127,7 +128,7 @@ socket.on('mande', (data) =>{
 		columna.classList.add("col-7","bg-warning", "m-2", "rounded-4");
 		hora.classList.add('small');
 	};
-	if (data[2] == usuarioConectado && destino != data[0]){
+	if (data[2] === usuarioConectado && destino !== data[0]){
 		for(let i=0;i<amigos.length; i++){
 			if (amigos[i].textContent == data[0]){
 				amigos[i].classList.add('menSinLeer');
