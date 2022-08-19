@@ -23,3 +23,4 @@ SQLAlchemy==1.4.39
 Werkzeug==2.1.2
 wsproto==1.1.0
 WTForms==3.0.1
+gevent-websocket==0.10.1
